@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>add Employee</title>
+</head>
+<body>
+    <h2>Employee Administration</h2>
+    Add employee to department: <span th:text="${department.deptName}"></span>
+    <br>
+    <form th:action="@{/employee}" method="post" th:object="${employee}">
+        <div th:if="${#fields.hasErrors()}">
+            Please correct the problems below and resubmit
+        </div>
+        <label for="number">Number</label>
+        <input id="number" type="text" th:field="*{empNo}">
+        <span th:if="${#fields.hasErrors('empNo')}" th:errors="*{empNo}">Number error</span>
+        <br>
+        <label for="firstname">Firstname</label>
+        <input id="firstname" type="text" th:field="*{firstname}">
+        <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname error</span>
+        <br>
+        <label for="lastname">Lastname</label>
+        <input id="lastname" type="text" th:field="*{lastname}">
+        <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Lastname error</span>
+        <br>
+        <label for="gender">Gender</label>
+        <input id="gender" type="text" th:field="*{gender}">
+        <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Gender error</span>
+        <br>
+        <label for="birthdate">Date of Birth</label>
+        <input id="birthdate" type="text" th:field="*{dateOfBirth}">
+        <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Date error</span>
+        <br>
+        <input type="submit" value="add Employee">
+    </form>
+</body>
+</html>

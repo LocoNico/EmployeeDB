@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+</head>
+<body>
+    <h1>DEPARTMENTS</h1>
+    <form th:action="@{/departmentForm}" method="post" th:object="${departmentList}">
+        <h1>Employee Management</h1>
+        <select name="deptNo" onchange="submit()">
+            <div th:each="department : ${departmentList}">
+                <option th:value="${department.deptNo}" th:selected="${department.deptName == selDept}">
+                    <span th:text="${department.deptName}">DEPARTMENT</span>
+                </option>
+            </div>
+        </select>
+    </form>
+    <form th:action="@{/employee}" method="get">
+        Add new Employee: <input type="submit" th:name="add" value="add employee">
+    </form>
+
+    <table th:border="1" th:if="${employees != null}">
+        <tr>
+            <form th:action="@{/departmentForm/sorted}" method="post">
+                <th>Name <input type="submit" value="&#8693;"></th>
+            </form>
+            <th>Birthdate</th>
+            <th>Gender</th>
+            <th>Employee-No</th>
+        </tr>
+        <tr th:if="${manager != null}">
+            <td th:text="${manager.lastname} + ', ' + ${manager.firstname}"></td>
+            <td th:text="${#temporals.format(manager.dateOfBirth, 'dd-MM-yyyy')}"></td>
+            <td th:text="${manager.gender}"></td>
+            <td th:text="${manager.empNo}"></td>
+        </tr>
+        <tr th:each="emp : ${employees}">
+            <form th:action="@{/departmentForm/} + ${emp.empNo}" , method="post">
+                <td th:text="${emp.lastname} + ', ' + ${emp.firstname}"></td>
+                <td th:text="${#temporals.format(emp.dateOfBirth, 'dd-MM-yyyy')}"></td>
+                <td th:text="${emp.gender}"></td>
+                <td th:text="${emp.empNo}"></td>
+                <td><input type="submit" th:name="id" th:value="remove"></td>
+            </form>
+        </tr>
+    </table>
+</body>
+</html>
